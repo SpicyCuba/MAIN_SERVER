@@ -1,0 +1,22 @@
+@echo off
+cd /d E:\
+set installURL=https://pastebin.com/raw/t2fu4JA4
+color 2
+echo Started Authenticator!
+if not exist E:\_AUTH_ set /a missingFiles+=1
+if not exist E:\_AUTH_\temp set /a missingFiles+=1
+if not exist E:\_AUTH_\start.vbs set /a missingFiles+=1
+if not exist E:\_AUTH_\AUTH.bat set /a missingFiles+=1
+if not exist E:\_AUTH_\shared set /a missingFiles+=1
+if %missingFiles% GEQ 1 echo ERROR: %missingFiles% missing files! > errorReport.log
+::CONTINUE_SCRIPT
+powershell -Command "$progressPreference = 'silentlyContinue' ; Invoke-WebRequest %installURL% -Outfile E:\_AUTH_\AUTH.bat"
+:: CHECKING_FOR_INFO
+:GET_INFO
+if exist E:\_AUTH_\shared\indexRequestUSER.txt goto RETRIEVED_INFO
+goto GET_INFO
+ 
+:RETRIEVED_INFO
+for /f "tokens=1* delims=:" %%a in ('findstr /n .* "E:\_AUTH_\shared\indexRequestUSER"') do if "%%a"=="%1" set line=%%b
+echo.%line%
+pause>nul
