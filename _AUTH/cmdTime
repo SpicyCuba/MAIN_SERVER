@@ -25,4 +25,5 @@ if 1%ms% lss 100 set ms=0%ms%
 set /a totalsecs = %hours%*3600 + %mins%*60 + %secs%
 echo %hours%:%mins%:%secs%.%ms% (%totalsecs%.%ms%) > %tmp%\_AUTH\temp\command\commandTimeALL.tmp
 echo %ms% > %tmp%\_AUTH\temp\command\commandTimeMS.tmp
+echo %totalsecs%%ms% > %tmp%\_AUTH\temp\command\commandTimeMSX.tmp
 echo %totalsecs%.%ms% > %tmp%\_AUTH\temp\command\commandTimeSHORT.tmp
